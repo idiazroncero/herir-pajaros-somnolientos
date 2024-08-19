@@ -11,7 +11,7 @@ import MonsterEyes from './components/MonsterEyes.vue'
   </div>
 
   <div class="bottom">
-    <MonsterEyes class="eyes" />
+    <MonsterEyes />
   </div>
 </template>
 
@@ -24,9 +24,5 @@ import MonsterEyes from './components/MonsterEyes.vue'
 }
 .bottom {
   margin-top: auto;
-}
-.eyes {
-  max-width: 500px;
-  margin: 0 auto;
 }
 </style>
