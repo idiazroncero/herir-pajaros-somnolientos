@@ -19,22 +19,37 @@ setInterval(() => {
   }
 }, 100)
 
-setInterval(() => {
-  const random = Math.random()
-  if (random < 0.5) {
-    variant.value = variant.value === 'A' ? 'B' : 'A'
+window.state = {
+  blink: 0,
+  change: 0,
+  stay: 0,
+  percentages() {
+    const total = this.blink + this.change + this.stay
+    return {
+      total: total,
+      blink: ((this.blink / total) * 100).toFixed(2) + '%',
+      change: ((this.change / total) * 100).toFixed(2) + '%',
+      stay: ((this.stay / total) * 100).toFixed(2) + '%'
+    }
   }
-}, 600)
+}
 
+// Move the eys and blink
 setInterval(() => {
   const random = Math.random()
-  if (random < 0.33) {
+  if (random < 0.1) {
     blinking.value = !blinking.value
     setTimeout(() => {
       blinking.value = !blinking.value
     }, 150)
+    window.state.blink++
+  } else if (random > 0.45) {
+    variant.value = variant.value === 'A' ? 'B' : 'A'
+    window.state.change++
+  } else {
+    window.state.stay++
   }
-}, 2000)
+}, 600)
 </script>
 
 <template>
@@ -45,16 +60,26 @@ setInterval(() => {
       alt="Ojo!"
     />
     <img v-show="blinking" :src="`ojos_0_A.png`" alt="Ojo!" />
+    <p class="zzz" v-if="counter.sleep_countdown === 0">...zZZzzZzZZzzZzZZzz...</p>
   </div>
 </template>
 
 <style scoped>
 .eyes {
+  position: relative;
   max-width: 500px;
   margin: 0 auto;
 }
 
 .eyes img {
   max-width: 100%;
+}
+
+.zzz {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
 }
 </style>

@@ -5,10 +5,28 @@ export const useHistoryStore = defineStore('history', () => {
   const history = ref([])
 
   function push(note) {
+    const duration = getDuration()
+    const currentLength = history.value.length
     history.value.push({
       note: note,
       timestamp: Date.now()
     })
+    // Retroactively update the previous note.
+    const previousNote = history.value[currentLength - 1]
+    if (previousNote) {
+      previousNote.duration = duration
+    }
+  }
+
+  function close() {
+    const lastNote = getLastEntry()
+    lastNote.duration = 0
+  }
+
+  function getDuration() {
+    const previousEntry = getLastEntry()
+    if (!previousEntry) return 0
+    return Date.now() - previousEntry.timestamp
   }
 
   function getLastEntry() {
@@ -16,8 +34,8 @@ export const useHistoryStore = defineStore('history', () => {
   }
 
   function shouldTriggerAdvance() {
-    return history.value.length % 3 === 0
+    return history.value.length % 5 === 0
   }
 
-  return { history, push, getLastEntry, shouldTriggerAdvance }
+  return { history, push, getLastEntry, shouldTriggerAdvance, close }
 })

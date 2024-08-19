@@ -11,7 +11,7 @@ export const useCounterStore = defineStore('sleep_countdown', () => {
   }
 
   function back() {
-    if (sleep_countdown.value < 25 && sleep_countdown.value > 0) {
+    if (sleep_countdown.value < 11 && sleep_countdown.value > 0) {
       sleep_countdown.value++
     }
   }

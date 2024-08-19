@@ -23,13 +23,17 @@ const notes = ref({
   U: 'B'
 })
 const currentNote = ref(null)
-const a = useSound(aFile)
-const b = useSound(bFile)
-const c = useSound(cFile)
-const d = useSound(dFile)
-const e = useSound(eFile)
-const f = useSound(fFile)
-const g = useSound(gFile)
+const noteSettings = {
+  volume: 0.4
+}
+
+const a = useSound(aFile, noteSettings)
+const b = useSound(bFile, noteSettings)
+const c = useSound(cFile, noteSettings)
+const d = useSound(dFile, noteSettings)
+const e = useSound(eFile, noteSettings)
+const f = useSound(fFile, noteSettings)
+const g = useSound(gFile, noteSettings)
 
 const playNotes = {
   C: a,
@@ -41,16 +45,28 @@ const playNotes = {
   B: g
 }
 
+function processNote(note) {
+  if (counter.sleep_countdown === 0) {
+    return
+  }
+
+  currentNote.value = note
+  playNotes[note].play()
+  history.push(note)
+
+  if (history.shouldTriggerAdvance()) {
+    counter.advance()
+  }
+
+  if (counter.sleep_countdown === 0) {
+    history.close()
+  }
+}
+
 document.addEventListener('keydown', (event) => {
   const note = notes.value[event.key.toUpperCase()]
   if (note) {
-    currentNote.value = note
-    playNotes[note].play()
-    history.push(note)
-
-    if (history.shouldTriggerAdvance()) {
-      counter.advance()
-    }
+    processNote(note)
   }
 })
 document.addEventListener('keyup', () => {
@@ -63,9 +79,11 @@ document.addEventListener('keyup', () => {
 <template>
   <ul>
     <li v-for="(note, key) in notes" v-bind:key="key">
-      <img v-show="currentNote !== note" src="/notita_blanco.png" alt="Indicador" />
-      <img v-show="currentNote === note" src="/notita_rojo.png" alt="Indicador" />
-      {{ key }}
+      <button @click="processNote(note)">
+        <img v-show="currentNote !== note" src="/notita_blanco.png" alt="Indicador" />
+        <img v-show="currentNote === note" src="/notita_rojo.png" alt="Indicador" />
+        {{ key }}
+      </button>
     </li>
   </ul>
 </template>
@@ -78,11 +96,20 @@ ul {
   display: flex;
 }
 
-li {
+li button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  appearance: none;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 1rem;
   padding: 1rem;
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
 }
 
 li img {

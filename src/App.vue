@@ -2,6 +2,10 @@
 // import { RouterLink, RouterView } from 'vue-router'
 import MusicBox from './components/MusicBox.vue'
 import MonsterEyes from './components/MonsterEyes.vue'
+import ResultTab from './components/ResultTab.vue'
+import { useCounterStore } from '@/stores/counter'
+
+const counter = useCounterStore()
 </script>
 
 <template>
@@ -12,6 +16,10 @@ import MonsterEyes from './components/MonsterEyes.vue'
 
   <div class="bottom">
     <MonsterEyes />
+  </div>
+
+  <div v-if="counter.sleep_countdown == 0" class="result">
+    <ResultTab />
   </div>
 </template>
 
@@ -24,5 +32,8 @@ import MonsterEyes from './components/MonsterEyes.vue'
 }
 .bottom {
   margin-top: auto;
+}
+.result {
+  max-width: 90vw;
 }
 </style>
