@@ -46,21 +46,24 @@ const playNotes = {
 }
 
 function processNote(note) {
-  if (counter.sleep_countdown === 0) {
+  if (history.slept) {
     return
   }
 
+  let isLast = false
   currentNote.value = note
   playNotes[note].play()
-  history.push(note)
 
   if (history.shouldTriggerAdvance()) {
     counter.advance()
   }
 
   if (counter.sleep_countdown === 0) {
-    history.close()
+    history.slept = true
+    isLast = true
   }
+
+  history.push(note, isLast)
 }
 
 document.addEventListener('keydown', (event) => {

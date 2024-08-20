@@ -3,14 +3,19 @@ import { defineStore } from 'pinia'
 
 export const useHistoryStore = defineStore('history', () => {
   const history = ref([])
+  const slept = ref(false)
 
-  function push(note) {
+  function push(note, isLast) {
     const duration = getDuration()
     const currentLength = history.value.length
-    history.value.push({
+    const pushOptions = {
       note: note,
-      timestamp: Date.now()
-    })
+      timestamp: Date.now(),
+      duration: 500, // This is a default until the duration is actually set. It maps to 3rem.
+      isLast
+    }
+    history.value.push(pushOptions)
+
     // Retroactively update the previous note.
     const previousNote = history.value[currentLength - 1]
     if (previousNote) {
@@ -37,5 +42,5 @@ export const useHistoryStore = defineStore('history', () => {
     return history.value.length % 5 === 0
   }
 
-  return { history, push, getLastEntry, shouldTriggerAdvance, close }
+  return { history, slept, push, getLastEntry, shouldTriggerAdvance, close }
 })

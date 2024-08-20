@@ -1,6 +1,6 @@
 <script setup>
 import { defineProps } from 'vue'
-const props = defineProps(['note', 'duration', 'isFirst'])
+const props = defineProps(['note', 'duration', 'isFirst', 'isLast'])
 
 function getWidth(duration) {
   if (duration === 0) return '6rem'
@@ -25,8 +25,8 @@ function getHumanDuration(duration) {
 
   <div
     v-if="duration"
-    class="tab"
-    :style="`width: ${getWidth(duration)}`"
+    :class="`tab ${isLast ? 'tab-last' : ''}`"
+    :style="`flex: 0 0 ${getWidth(duration)}`"
     :data-seconds="getHumanDuration(duration)"
   >
     <div :class="`slot slot-c ${note === 'C' ? 'active' : null}`"><span></span></div>
@@ -44,9 +44,15 @@ function getHumanDuration(duration) {
   display: flex;
   flex-direction: column;
   width: 3rem;
+  flex: 0 0 3rem;
 }
 
-.tab-first {
+.tab-last {
+  border-right: 12px double var(--vt-c-black);
+}
+
+.tab-last span {
+  display: none;
 }
 
 .tab-first .slot span {

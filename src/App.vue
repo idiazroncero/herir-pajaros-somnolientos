@@ -18,7 +18,7 @@ const counter = useCounterStore()
     <MonsterEyes />
   </div>
 
-  <div v-if="counter.sleep_countdown == 0" class="result">
+  <div v-if="counter.sleep_countdown != -1" class="result">
     <ResultTab />
   </div>
 </template>
@@ -35,5 +35,6 @@ const counter = useCounterStore()
 }
 .result {
   max-width: 90vw;
+  width: 100%;
 }
 </style>

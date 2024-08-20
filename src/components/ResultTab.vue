@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useHistoryStore } from '@/stores/history'
 import TabPosition from './TabPosition.vue'
 const history = useHistoryStore()
-const seeTab = ref(false)
+const seeTab = ref(true)
 
 function toggleTab() {
   seeTab.value = !seeTab.value
@@ -11,15 +11,17 @@ function toggleTab() {
 </script>
 
 <template>
-  <button @click="toggleTab()">Hermana click aqui y ya me cuentas que tal</button>
   <div v-if="seeTab" class="wrapper">
-    <TabPosition
-      v-for="(entry, index) in history.history"
-      v-bind:key="index"
-      :note="entry.note"
-      :duration="entry.duration"
-      :isFirst="index === 0"
-    />
+    <div class="scroller">
+      <TabPosition
+        v-for="(entry, index) in history.history"
+        v-bind:key="index"
+        :note="entry.note"
+        :duration="entry.duration"
+        :isFirst="index === 0"
+        :isLast="entry.isLast"
+      />
+    </div>
   </div>
 </template>
 
@@ -28,11 +30,15 @@ function toggleTab() {
   background-color: var(--vt-c-white);
   padding: 1rem;
   border-radius: 1rem;
+  color: var(--vt-c-black);
+  width: 100%;
+}
+
+.scroller {
   overflow-x: auto;
   overflow-y: hidden;
-  color: var(--vt-c-black);
   display: flex;
-  flex-wrap: wrap;
+  min-width: 100%;
 }
 
 button {
