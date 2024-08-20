@@ -42,36 +42,51 @@ function getHumanDuration(duration) {
 <style scoped>
 .tab {
   display: flex;
-  flex-direction: column;
-  width: 3rem;
+  flex-direction: row;
+  height: 3rem;
   flex: 0 0 3rem;
 }
 
 .tab-last {
-  border-right: 12px double var(--vt-c-black);
+  border-bottom: 12px double var(--vt-c-black);
 }
 
 .tab-last span {
   display: none;
 }
 
+.tab-first {
+  height: 4rem;
+  flex: 0 0 4rem;
+  position: relative;
+}
+
+.tab-first::before {
+  content: '';
+  border-bottom: 2px solid var(--vt-c-black);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 1rem;
+}
+
 .tab-first .slot span {
   display: block;
   background-color: transparent;
   height: auto;
-  line-height: 2rem;
+  line-height: 3rem;
   margin-top: 2px;
   outline: none;
 }
 
 .slot {
-  border-bottom: 4px solid var(--vt-c-black);
-  height: 2rem;
+  border-right: 3px solid var(--vt-c-black);
+  width: 3rem;
   position: relative;
 }
 
 .slot:last-child {
-  border-bottom: none;
+  border-right: none;
 }
 
 .slot span {
@@ -79,9 +94,9 @@ function getHumanDuration(duration) {
   height: 1rem;
   background-color: var(--vt-c-black);
   position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
   display: none;
   outline: 1px solid white;
 }

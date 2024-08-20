@@ -13,14 +13,16 @@ function toggleTab() {
 <template>
   <div v-if="seeTab" class="wrapper">
     <div class="scroller">
-      <TabPosition
-        v-for="(entry, index) in history.history"
-        v-bind:key="index"
-        :note="entry.note"
-        :duration="entry.duration"
-        :isFirst="index === 0"
-        :isLast="entry.isLast"
-      />
+      <div class="card">
+        <TabPosition
+          v-for="(entry, index) in history.history"
+          v-bind:key="index"
+          :note="entry.note"
+          :duration="entry.duration"
+          :isFirst="index === 0"
+          :isLast="entry.isLast"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -28,17 +30,28 @@ function toggleTab() {
 <style scoped>
 .wrapper {
   background-color: var(--vt-c-white);
-  padding: 1rem;
+  padding: 3rem 2rem;
   border-radius: 1rem;
   color: var(--vt-c-black);
   width: 100%;
+  height: 100%;
 }
 
 .scroller {
-  overflow-x: auto;
-  overflow-y: hidden;
-  display: flex;
-  min-width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100%;
+  padding: 1rem;
+}
+
+.card {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 2rem 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
 }
 
 button {

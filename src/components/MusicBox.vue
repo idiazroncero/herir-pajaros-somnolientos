@@ -3,6 +3,7 @@ import { useCounterStore } from '@/stores/counter'
 import { useHistoryStore } from '@/stores/history'
 import { ref } from 'vue'
 import { useSound } from '@vueuse/sound'
+import { useRouter } from 'vue-router'
 import aFile from '../assets/sounds/a.mp3'
 import bFile from '../assets/sounds/b.mp3'
 import cFile from '../assets/sounds/c.mp3'
@@ -13,6 +14,7 @@ import gFile from '../assets/sounds/g.mp3'
 
 const counter = useCounterStore()
 const history = useHistoryStore()
+const router = useRouter()
 const notes = ref({
   Q: 'C',
   W: 'D',
@@ -64,6 +66,11 @@ function processNote(note) {
   }
 
   history.push(note, isLast)
+
+  if (counter.sleep_countdown === 0) {
+    // TODO: make this via subscribers o similar
+    router.push('/tab')
+  }
 }
 
 document.addEventListener('keydown', (event) => {
