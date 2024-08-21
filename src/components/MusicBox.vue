@@ -26,7 +26,8 @@ const notes = ref({
 })
 const currentNote = ref(null)
 const noteSettings = {
-  volume: 0.4
+  volume: 0.4,
+  interrupt: false
 }
 
 const a = useSound(aFile, noteSettings)
@@ -88,7 +89,7 @@ document.addEventListener('keyup', () => {
 
 <template>
   <ul>
-    <li v-for="(note, key) in notes" v-bind:key="key">
+    <li v-for="(note, key) in notes" v-bind:key="key" :class="`${history.slept ? 'disabled' : ''}`">
       <button @click="processNote(note)">
         <img v-show="currentNote !== note" src="/notita_blanco.png" alt="Indicador" />
         <img v-show="currentNote === note" src="/notita_rojo.png" alt="Indicador" />
@@ -106,6 +107,10 @@ ul {
   display: flex;
 }
 
+li.disabled {
+  opacity: 0.25;
+}
+
 li button {
   background: none;
   border: none;
@@ -120,6 +125,10 @@ li button {
   color: inherit;
   font-size: inherit;
   font-family: inherit;
+}
+
+li button:active {
+  scale: 0.95;
 }
 
 li img {

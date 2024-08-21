@@ -14,7 +14,7 @@ setInterval(() => {
   const now = Date.now()
   const diff = now - lastEntry.timestamp
 
-  if (diff > 2000) {
+  if (diff > 1200) {
     counter.back()
   }
 }, 100)
@@ -37,19 +37,19 @@ window.state = {
 // Move the eys and blink
 setInterval(() => {
   const random = Math.random()
-  if (random < 0.1) {
+  if (random < 0.15) {
     blinking.value = !blinking.value
     setTimeout(() => {
       blinking.value = !blinking.value
     }, 150)
     window.state.blink++
-  } else if (random > 0.45) {
+  } else if (random > 0.575) {
     variant.value = variant.value === 'A' ? 'B' : 'A'
     window.state.change++
   } else {
     window.state.stay++
   }
-}, 600)
+}, 650)
 </script>
 
 <template>
@@ -60,7 +60,6 @@ setInterval(() => {
       alt="Ojo!"
     />
     <img v-show="blinking" :src="`ojos_0_A.png`" alt="Ojo!" />
-    <p class="zzz" v-if="counter.sleep_countdown === 0">...zZZzzZzZZzzZzZZzz...</p>
   </div>
 </template>
 
