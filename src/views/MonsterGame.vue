@@ -3,11 +3,25 @@
 import MusicBox from '../components/MusicBox.vue'
 import MonsterEyes from '../components/MonsterEyes.vue'
 import { useCounterStore } from '@/stores/counter'
+import { useSound } from '@vueuse/sound'
+import { ref } from 'vue'
+import winderFile from '../assets/sounds/winder.mp3'
 const counter = useCounterStore()
+const introFinished = ref(false)
+const introStarted = ref(false)
+const winder = useSound(winderFile, {
+  onplay: () => {
+    introStarted.value = true
+  },
+  onend: () => {
+    introFinished.value = true
+  }
+})
 </script>
 
 <template>
-  <Transition appear>
+  <button class="btn" @click="winder.play()" v-if="!introStarted">Comenzar!</button>
+  <Transition appear v-if="introFinished">
     <div class="top">
       <MusicBox class="musicbox" />
       <p class="instructions">· Duerme a la criatura ·</p>
@@ -18,7 +32,7 @@ const counter = useCounterStore()
     <RouterLink to="/tab">Quiero ver mi tarjeta de musicbox</RouterLink>
   </div> -->
 
-  <Transition appear>
+  <Transition appear v-if="introFinished">
     <div class="bottom">
       <MonsterEyes />
     </div>
@@ -27,11 +41,11 @@ const counter = useCounterStore()
 
 <style scoped>
 .top.v-enter-active {
-  transition: opacity 2s ease 1.5s;
+  transition: opacity 3s ease 1.5s;
 }
 
 .bottom.v-enter-active {
-  transition: opacity 0.5s ease 0.5s;
+  transition: opacity 0.5s ease 0s;
 }
 
 .v-enter-from {

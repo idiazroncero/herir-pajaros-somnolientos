@@ -24,10 +24,13 @@ const history = useHistoryStore()
 .scroller {
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 1rem;
+  position: fixed;
+  inset: 0;
 }
 
 .card {
+  margin-top: max(50vh, 350px);
+  margin-bottom: 15vh;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -35,6 +38,7 @@ const history = useHistoryStore()
   padding: 2rem 1rem;
   border-radius: 0.75rem;
   box-shadow: 0px -4px 12px 0px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
 }
 
 button {

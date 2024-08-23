@@ -7,7 +7,7 @@ import ResultTab from '../components/ResultTab.vue'
   <Transition appear>
     <div class="result">
       <div class="congrats">
-        <h1>Felicidades</h1>
+        <h1>¡Felicidades!</h1>
         <p>
           ¡Has logrado dormir a la criatura!<br />
           Aquí está tu creación, puedes imprimirla y utilizarla en una caja de música para dormir a
@@ -25,42 +25,42 @@ import ResultTab from '../components/ResultTab.vue'
 
 <style scoped>
 .result {
-  width: 90vw;
-  height: 100%;
+  width: 100%;
+  height: 80vh;
+  min-height: 450px;
   align-self: stretch;
   margin: 0 auto;
   position: relative;
   background-color: var(--vt-c-white);
-  padding: 3rem 2rem;
+  padding: 6vh 3vw;
   border-radius: 1rem;
   color: var(--vt-c-black);
-}
-
-.btn {
-  text-decoration: none;
-  font-size: 0.8rem;
-  border: 2px solid var(--vt-c-black);
-  color: var(--vt-c-black);
-  padding: 0.75rem 1rem 0.5rem 1rem;
-  line-height: 1;
 }
 
 .btn:hover,
 .btn:focus {
   outline: 2px solid var(--vt-c-black);
-  outline-offset: 2px;
-  border-color: transparent;
-  color: var(--vt-c-white);
-  background-color: var(--vt-c-black);
-}
-
-.btn:active {
-  transform: scale(0.95);
 }
 
 .congrats {
   max-width: 860px;
   margin: 0 auto;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+p {
+  font-size: 0.85rem;
+}
+@media (min-width: 768px) {
+  h1 {
+    font-size: 3rem;
+  }
+  p {
+    font-size: 1rem;
+  }
 }
 
 .links {
