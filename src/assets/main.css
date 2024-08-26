@@ -17,12 +17,13 @@ body {
   flex: 1;
   width: 100%;
   max-height: 100%;
-  padding: 10vh 10vw;
+  padding: var(--app-spacing-block) var(--app-spacing-inline);
 }
 
 @media (max-width: 768px) {
   #app {
-    padding: 5vh 5vw;
+    --app-spacing-block: 5vh;
+    --app-spacing-inline: 5vw;
   }
 }
 

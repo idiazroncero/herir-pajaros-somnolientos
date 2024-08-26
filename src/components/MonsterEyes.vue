@@ -14,7 +14,7 @@ setInterval(() => {
   const now = Date.now()
   const diff = now - lastEntry.timestamp
 
-  if (diff > 1200) {
+  if (diff > 2000) {
     counter.back()
   }
 }, 100)

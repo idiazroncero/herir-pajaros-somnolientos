@@ -28,6 +28,11 @@ export const useHistoryStore = defineStore('history', () => {
     lastNote.duration = 0
   }
 
+  function restart() {
+    history.value = []
+    slept.value = false
+  }
+
   function getDuration() {
     const previousEntry = getLastEntry()
     if (!previousEntry) return 0
@@ -42,5 +47,5 @@ export const useHistoryStore = defineStore('history', () => {
     return history.value.length % 5 === 0
   }
 
-  return { history, slept, push, getLastEntry, shouldTriggerAdvance, close }
+  return { history, slept, push, getLastEntry, shouldTriggerAdvance, close, restart }
 })

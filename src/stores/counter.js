@@ -2,7 +2,8 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useCounterStore = defineStore('sleep_countdown', () => {
-  const sleep_countdown = ref(11)
+  const steps = 11
+  const sleep_countdown = ref(steps)
 
   function advance() {
     if (sleep_countdown.value > 0) {
@@ -11,10 +12,14 @@ export const useCounterStore = defineStore('sleep_countdown', () => {
   }
 
   function back() {
-    if (sleep_countdown.value < 11 && sleep_countdown.value > 0) {
+    if (sleep_countdown.value < steps && sleep_countdown.value > 0) {
       sleep_countdown.value++
     }
   }
 
-  return { sleep_countdown, advance, back }
+  function restart() {
+    sleep_countdown.value = steps
+  }
+
+  return { sleep_countdown, advance, back, restart }
 })

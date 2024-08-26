@@ -6,21 +6,31 @@ import { useCounterStore } from '@/stores/counter'
 import { useSound } from '@vueuse/sound'
 import { ref } from 'vue'
 import winderFile from '../assets/sounds/winder.mp3'
+import { useHistoryStore } from '@/stores/history'
 const counter = useCounterStore()
+const history = useHistoryStore()
 const introFinished = ref(false)
 const introStarted = ref(false)
 const winder = useSound(winderFile, {
+  volume: 0.4,
+  interrupt: false,
   onplay: () => {
     introStarted.value = true
   },
   onend: () => {
     introFinished.value = true
+    history.restart()
+    counter.restart()
   }
 })
+
+function start() {
+  winder.play()
+}
 </script>
 
 <template>
-  <button class="btn" @click="winder.play()" v-if="!introStarted">Comenzar!</button>
+  <button class="btn" @click="start()" v-if="!introStarted">Haz click para comenzar...</button>
   <Transition appear v-if="introFinished">
     <div class="top">
       <MusicBox class="musicbox" />

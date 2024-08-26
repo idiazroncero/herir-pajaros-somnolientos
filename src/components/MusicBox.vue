@@ -38,14 +38,25 @@ const e = useSound(eFile, noteSettings)
 const f = useSound(fFile, noteSettings)
 const g = useSound(gFile, noteSettings)
 
+function PlayHandler(soundObject) {
+  this.isPlaying = false
+  this.play = function () {
+    soundObject.play()
+    this.isPlaying = true
+    setTimeout(() => {
+      this.isPlaying = false
+    }, 400)
+  }
+}
+
 const playNotes = {
-  C: a,
-  D: b,
-  E: c,
-  F: d,
-  G: e,
-  A: f,
-  B: g
+  C: new PlayHandler(a),
+  D: new PlayHandler(b),
+  E: new PlayHandler(c),
+  F: new PlayHandler(d),
+  G: new PlayHandler(e),
+  A: new PlayHandler(f),
+  B: new PlayHandler(g)
 }
 
 function processNote(note) {
@@ -55,6 +66,12 @@ function processNote(note) {
 
   let isLast = false
   currentNote.value = note
+
+  // Bypass the same note repeated too quickly
+  if (playNotes[note].isPlaying) {
+    return
+  }
+
   playNotes[note].play()
 
   if (history.shouldTriggerAdvance()) {

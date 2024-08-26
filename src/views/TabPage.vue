@@ -26,15 +26,8 @@ import ResultTab from '../components/ResultTab.vue'
 <style scoped>
 .result {
   width: 100%;
-  height: 80vh;
-  min-height: 450px;
   align-self: stretch;
   margin: 0 auto;
-  position: relative;
-  background-color: var(--vt-c-white);
-  padding: 6vh 3vw;
-  border-radius: 1rem;
-  color: var(--vt-c-black);
 }
 
 .btn:hover,
@@ -43,7 +36,28 @@ import ResultTab from '../components/ResultTab.vue'
 }
 
 .congrats {
-  max-width: 860px;
+  align-self: stretch;
+  margin: var(--var-spacing-block) var(--var-spacing-inline) 0;
+  position: relative;
+  padding: 6vh 3vw;
+  color: var(--vt-c-black);
+  position: sticky;
+  top: var(--app-spacing-block);
+  z-index: 1;
+}
+
+.congrats::before {
+  content: '';
+  position: fixed;
+  inset: var(--app-spacing-block) var(--app-spacing-inline);
+  background-color: var(--vt-c-white);
+  border-radius: 1rem;
+  z-index: -1;
+}
+
+h1,
+p {
+  max-width: 680px;
   margin: 0 auto;
 }
 
@@ -59,7 +73,7 @@ p {
     font-size: 3rem;
   }
   p {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
 }
 
@@ -68,6 +82,7 @@ p {
   justify-content: center;
   gap: 2rem;
   margin: 1rem auto;
+  position: relative;
 }
 
 .v-enter-active {
