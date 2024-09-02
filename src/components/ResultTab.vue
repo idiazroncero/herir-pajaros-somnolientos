@@ -36,9 +36,16 @@ const history = useHistoryStore()
   align-items: center;
   background-color: #fff;
   color: var(--vt-c-black);
-  padding: 2rem 1rem;
-  border-radius: 0.75rem;
+  padding: 1.25rem 0.75rem;
+  border-radius: 0.5rem;
   box-shadow: 0px -4px 12px 0px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 500px) {
+  .card {
+    padding: 2rem 1rem;
+    border-radius: 0.75rem;
+  }
 }
 
 button {

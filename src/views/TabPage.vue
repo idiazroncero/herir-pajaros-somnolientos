@@ -79,10 +79,18 @@ p {
 
 .links {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
   margin: 1rem auto;
   position: relative;
+}
+
+@media (min-width: 500px) {
+  .links {
+    flex-direction: row;
+    gap: 2rem;
+  }
 }
 
 .v-enter-active {

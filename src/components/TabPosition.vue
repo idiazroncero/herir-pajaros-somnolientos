@@ -104,4 +104,22 @@ function getHumanDuration(duration) {
 .slot.active span {
   display: block;
 }
+
+@media (max-width: 500px) {
+  .slot {
+    width: 2rem;
+  }
+  .tab-first {
+    height: 3rem;
+    flex: 0 0 3rem;
+  }
+  .tab-first .slot span {
+    font-size: 1.2rem;
+    line-height: 2rem;
+  }
+  .slot span {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+}
 </style>
